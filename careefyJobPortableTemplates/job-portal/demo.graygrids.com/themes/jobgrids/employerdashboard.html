@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard | JobPortal</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --card-bg: #ffffff;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            font-family: 'Inter', sans-serif;
+            color: #2b2d42;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark), #343a40);
+            padding-top: 30px;
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a {
+            color: #e9ecef;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar .brand-logo {
+            color: white;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            padding: 0 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar .brand-logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        #content {
+            width: 100%;
+            min-height: 100vh;
+            transition: all 0.3s;
+            margin-left: var(--sidebar-width);
+        }
+
+        .navbar {
+            padding: 15px 10px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .table th {
+            border-top: none;
+            font-weight: 600;
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 5px 10px;
+        }
+
+        .btn-outline-primary {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .header {
+            background-color: white;
+            color: var(--dark);
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            #content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block !important;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--dark);
+            margin-right: 15px;
+        }
+
+        /* Add these to your existing CSS */
+        .sidebar.active {
+            transform: translateX(-100%);
+        }
+
+        #content.active {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        @media (min-width: 992px) {
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            #content.active {
+                margin-left: var(--sidebar-width);
+            }
+        }
+    </style>
+
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="brand-logo">
+            <i class="fas fa-briefcase"></i>
+            <span>Employer Panel</span>
+        </div>
+        <a href="employerdashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="jobPostin.html"><i class="fas fa-plus-circle"></i> Post Job</a>
+        <a href="manageJobsEmployer.html"><i class="fas fa-list"></i> Manage Jobs</a>
+        <a href="empDashboard-candidate.html" class="active"><i class="fas fa-users"></i> Candidates</a>
+        <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Page Content -->
+    <div id="content" class="bg-light">
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-outline-secondary">
+                    <i class="fas fa-align-left"></i>
+                </button>
+
+                <div class="d-flex align-items-center ms-auto">
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge bg-primary">3</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">New application received</a></li>
+                            <li><a class="dropdown-item" href="#">Candidate message</a></li>
+                            <li><a class="dropdown-item" href="#">Job posting approved</a></li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                            <img src="https://via.placeholder.com/40" alt="User" class="rounded-circle me-2">
+                            <span>John Doe</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid py-4">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="fw-bold">Dashboard Overview</h2>
+                    <p class="text-muted">Welcome back! Here's what's happening with your job postings.</p>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <!-- Active Jobs Card -->
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-primary text-white h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-uppercase">Active Jobs</h6>
+                                    <h2 id="activeJobCount" class="mb-0">0</h2> <!-- this will update -->
+                                </div>
+                                <i class="fas fa-briefcase fa-2x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Applications Card -->
+                <div class="col-md-3 mb-3">
+                    <div class="card bg-white h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-uppercase text-muted">Applications</h6>
+                                    <h2 class="mb-0">84</h2>
+                                </div>
+                                <i class="fas fa-file-alt fa-2x text-muted"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Recent Activity and Top Jobs -->
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Recent Applications</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Candidate</th>
+                                        <th>Position</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!-- Dynamic content will go here -->
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">Top Job Postings</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">Senior Frontend Developer</h6>
+                                        <small class="text-muted">12 applications</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">5 new</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">UX/UI Designer</h6>
+                                        <small class="text-muted">8 applications</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">3 new</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">Backend Engineer</h6>
+                                        <small class="text-muted">6 applications</small>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">1 new</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="mb-1">Product Manager</h6>
+                                        <small class="text-muted">4 applications</small>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Custom JS -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sidebar toggle functionality
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const sidebarCollapse = document.getElementById('sidebarCollapse');
+
+        // Toggle sidebar on button click
+        if (sidebarCollapse) {
+            sidebarCollapse.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+
+                // Store state in localStorage
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebarCollapsed', isCollapsed);
+            });
+        }
+
+        // Check for saved state on page load
+        const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+        if (isCollapsed) {
+            sidebar.classList.add('collapsed');
+            content.classList.add('collapsed');
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const isMobile = window.innerWidth < 992;
+            const isSidebar = sidebar.contains(event.target);
+            const isToggleButton = event.target === sidebarCollapse ||
+                sidebarCollapse.contains(event.target);
+
+            if (isMobile && !isSidebar && !isToggleButton && sidebar.classList.contains('collapsed')) {
+                sidebar.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+            }
+        });
+
+        // Update on window resize
+        window.addEventListener('resize', function() {
+            const isMobile = window.innerWidth < 992;
+            if (!isMobile && sidebar.classList.contains('collapsed')) {
+                sidebar.classList.remove('collapsed');
+                content.classList.remove('collapsed');
+            }
+        });
+
+        // Rest of your dashboard functionality
+        const stats = {
+            activeJobs: 12,
+            applications: 84,
+            interviews: 15,
+            messages: 7
+        };
+
+        // Update stats cards
+        document.querySelectorAll('.card-stats h2').forEach((el, index) => {
+            const keys = Object.keys(stats);
+            let count = 0;
+            const target = stats[keys[index]];
+            const increment = target / 50;
+
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    count = target;
+                    clearInterval(timer);
+                }
+                el.textContent = Math.floor(count);
+            }, 20);
+        });
+
+        // Initialize tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+    });
+</script>
+
+<!-- Include jwt-decode library -->
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+            alert("User not authenticated!");
+        } else {
+            try {
+                const decoded = jwt_decode(token);
+                const userEmail = decoded.email || decoded.sub;
+
+                if (!userEmail) {
+                    alert("Email not found in token!");
+                    return;
+                }
+
+                // Get user by email to fetch employerId
+                $.ajax({
+                    url: `http://localhost:8090/users/getByEmail?email=${userEmail}`,
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Content-Type": "application/json"
+                    },
+                    success: function (userData) {
+                        const employerId = userData.userId;
+
+                        if (!employerId) {
+                            alert("Employer ID not found in response");
+                            return;
+                        }
+
+                        // Now fetch applications by employerId
+                        $.ajax({
+                            url: `http://localhost:8090/job-applications/fromEmployer/${employerId}`,
+                            method: "GET",
+                            headers: {
+                                "Authorization": "Bearer " + token
+                            },
+                            success: function (applications) {
+                                renderApplications(applications);
+                            },
+                            error: function () {
+                                alert("Failed to load applications!");
+                            }
+                        });
+                    },
+                    error: function () {
+                        alert("Failed to fetch user by email!");
+                    }
+                });
+            } catch (err) {
+                console.error("Token decoding error:", err);
+            }
+        }
+
+        // Function to render applications to the card-styled table
+        function renderApplications(applications) {
+            const tbody = $("table.table-hover tbody");
+            tbody.empty(); // clear existing
+
+            if (applications.length === 0) {
+                tbody.append(`<tr><td colspan="3">No applications found.</td></tr>`);
+                return;
+            }
+
+            applications.forEach((app, index) => {
+                const name = app.username || 'N/A';
+                const email = app.email || 'N/A';
+                const job = app.jobTitle || 'N/A';
+                const status = app.status ? app.status.toLowerCase() : 'pending';
+
+                // Badge class based on status
+                let badgeClass = 'bg-warning text-dark'; // pending
+                if (status === 'approved') badgeClass = 'bg-success';
+                if (status === 'rejected') badgeClass = 'bg-danger';
+
+                const row = `
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <h6 class="mb-0">${app.username}</h6>
+                                <small class="text-muted">${app.email}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${job}</td>
+                    <td><span class="badge ${badgeClass}">${app.status || 'Pending'}</span></td>
+                </tr>
+            `;
+                tbody.append(row);
+            });
+        }
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+            alert("User not authenticated!");
+            return;
+        }
+
+        try {
+            const decoded = jwt_decode(token);
+            const userEmail = decoded.email || decoded.sub;
+
+            $.ajax({
+                url: `http://localhost:8090/users/getByEmail`,
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                },
+                success: function (userData) {
+                    const employerId = userData.userId;
+
+                    $.ajax({
+                        url: `http://localhost:8090/jobs/count/${employerId}`,
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token
+                        },
+                        success: function (count) {
+                            $("#activeJobCount").text(count); // Set count in card
+                        },
+                        error: function () {
+                            alert("Failed to load job count!");
+                        }
+                    });
+                },
+                error: function () {
+                    alert("Failed to fetch user details!");
+                }
+            });
+
+        } catch (e) {
+            console.error("Token decode error", e);
+        }
+    });
+</script>
+
+
+
+</body>
+</html>

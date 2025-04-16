@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard - Update Job</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --card-bg: #ffffff;
+            --sidebar-width: 280px;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            font-family: 'Inter', sans-serif;
+            color: #2b2d42;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark), #343a40);
+            padding-top: 30px;
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar a {
+            color: #e9ecef;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar .brand-logo {
+            color: white;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            padding: 0 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar .brand-logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background-color: white;
+            color: var(--dark);
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .header .profile-btn {
+            background: var(--light);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .header .profile-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .header .profile-btn i {
+            margin-right: 8px;
+        }
+
+        /* Job Post Form */
+        .job-post-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark);
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+            color: #374151;
+        }
+
+        .form-control {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+        }
+
+        .select {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 10px 15px;
+            background-color: white;
+        }
+
+        .file-input-container {
+            margin-top: 10px;
+        }
+
+        .file-input-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .file-input-container input[type="file"] {
+            display: block;
+            margin-top: 5px;
+        }
+
+        .file-input-container p {
+            font-size: 13px;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+
+        .btn-cancel:hover {
+            background-color: #5a6268;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block !important;
+            }
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--dark);
+            margin-right: 15px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="brand-logo">
+        <i class="fas fa-briefcase"></i>
+        <span>Employer Panel</span>
+    </div>
+    <a href="admindashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="#" class="active"><i class="fas fa-edit"></i> Update Job</a>
+    <a href="manageJobsEmployer.html"><i class="fas fa-list"></i> Manage Jobs</a>
+    <a href="empDashboard-candidate.html"><i class="fas fa-users"></i> Candidates</a>
+    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1>Update Job Details</h1>
+        <button class="btn profile-btn">
+            <i class="fas fa-user-circle"></i>
+            <span>Profile</span>
+        </button>
+    </div>
+
+    <!-- Job Update Form -->
+    <div class="job-post-container">
+        <form id="jobUpdateForm">
+            <input type="hidden" id="job_id" name="job_id">
+            <input type="hidden" id="user_id" name="user_id">
+            <input type="hidden" id="category_id" name="category_id">
+
+            <h3 class="form-section-title">Job Information</h3>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Job title*</label>
+                        <input class="form-control" type="text" name="title" id="title" required>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Job Description*</label>
+                        <textarea name="message" class="form-control" id="description" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Responsibilities*</label>
+                        <textarea name="ResponsibilitiesMessage" id="responsibilities" class="form-control" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Experiences*</label>
+                        <textarea name="ExMessage" id="experience" class="form-control" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Location*</label>
+                        <input class="form-control" id="location" type="text" name="location" required>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Job Types*</label>
+                        <select name="jobType" class="select" id="jobType" required>
+                            <option value="1">Full Time</option>
+                            <option value="2">Part Time</option>
+                            <option value="3">Contract</option>
+                            <option value="4">Internship</option>
+                            <option value="5">Office</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Category*</label>
+                        <select class="select" id="jobTypeSelect" required>
+                            <option value="">Select Job Type</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Salary*</label>
+                        <input class="form-control" type="text" name="salary" placeholder="35000.00" id="salary" required>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Application Deadline</label>
+                        <input type="date" class="form-control" id="date">
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="form-section-title">Company Information</h3>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input class="form-control" type="text" id="companyName" name="Company">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" id="ComEmail" type="email" name="Email">
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Company Description*</label>
+                        <textarea name="CompanyDesc" class="form-control" id="comDesc" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group file-input-container">
+                        <label>Logo (Optional)</label>
+                        <input type="file" id="img" name="img" accept="image/*">
+                        <p>Maximum file size: 2 MB</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 form-actions">
+                <button type="button" class="btn btn-cancel" id="cancelBtn">
+                    Cancel
+                </button>
+                <button type="submit" class="btn submit-btn">
+                    Update Job
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function () {
+                document.querySelector('.sidebar').classList.toggle('active');
+            });
+        }}
+        );
+
+
+
+</script>
+<!--<script>-->
+<!--    const serverUrl = 'http://localhost:8090';-->
+
+<!--    $(document).ready(function() {-->
+<!--        // Load job types first-->
+<!--        loadJobTypes().then(() => {-->
+<!--            // Then load job data if ID exists in URL-->
+<!--            const urlParams = new URLSearchParams(window.location.search);-->
+<!--            const jobId = urlParams.get("jobId");-->
+
+<!--            if (jobId) {-->
+<!--                loadJobData(jobId);-->
+<!--            }-->
+<!--        });-->
+
+<!--        // Cancel button functionality-->
+<!--        $('#cancelBtn').click(function() {-->
+<!--            window.location.href = 'manage-jobs.html';-->
+<!--        });-->
+
+<!--        // Form submission handler-->
+<!--        $('#jobUpdateForm').submit(function(e) {-->
+<!--            e.preventDefault();-->
+<!--            updateJob();-->
+<!--        });-->
+<!--    });-->
+
+<!--    // Function to load job types/categories-->
+<!--    function loadJobTypes() {-->
+<!--        return $.ajax({-->
+<!--            url: `${serverUrl}/jobType/getAll`,-->
+<!--            type: 'GET',-->
+<!--            dataType: 'json',-->
+<!--            success: function(data) {-->
+<!--                const selectElement = $('#jobTypeSelect');-->
+<!--                selectElement.empty();-->
+<!--                selectElement.append('<option value="">Select Job Type</option>');-->
+
+<!--                data.forEach(jobType => {-->
+<!--                    selectElement.append(-->
+<!--                        $('<option></option>').val(jobType.id).text(jobType.name)-->
+<!--                    );-->
+<!--                });-->
+<!--            },-->
+<!--            error: function(xhr, status, error) {-->
+<!--                console.error('Error fetching job types:', error);-->
+<!--                Swal.fire({-->
+<!--                    title: 'Error!',-->
+<!--                    text: 'Failed to load job categories',-->
+<!--                    icon: 'error'-->
+<!--                });-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        // Get jobId from URL (example: ?jobId=1)-->
+<!--        const urlParams = new URLSearchParams(window.location.search);-->
+<!--        const jobId = urlParams.get("jobId");-->
+<!--        console.log(jobId);-->
+
+<!--        if (jobId) {-->
+<!--            $.ajax({-->
+<!--                url: `http://localhost:8090/jobs/get/${jobId}`,-->
+<!--                type: "GET",-->
+<!--                contentType: 'application/json',-->
+<!--                success: function (job) {-->
+<!--                    console.log(job);-->
+
+<!--                    // Update form fields with job data-->
+<!--                    $("#job_id").val(job.id);-->
+<!--                    $("#title").val(job.title);-->
+<!--                    $("#description").val(job.description);-->
+<!--                    $("#responsibilities").val(job.responsibilities);-->
+<!--                    $("#experience").val(job.experience);-->
+<!--                    $("#location").val(job.location);-->
+<!--                    $("#jobType").val(job.jobTypeId); // Assuming jobTypeId matches option values-->
+<!--                    $("#salary").val(job.salary);-->
+<!--                    $("#date").val(job.deadline);-->
+<!--                    $("#companyName").val(job.companyName);-->
+<!--                    $("#ComEmail").val(job.email);-->
+<!--                    $("#comDesc").val(job.companyDescription);-->
+
+<!--                    // For select elements, ensure the value exists in options-->
+<!--                    const jobTypeSelect = $("#jobType");-->
+<!--                    if (jobTypeSelect.find(`option[value="${job.jobTypeId}"]`).length > 0) {-->
+<!--                        jobTypeSelect.val(job.jobTypeId);-->
+<!--                    }-->
+
+<!--                    // Update the Company Logo display if needed-->
+<!--                    if (job.logo) {-->
+<!--                        $(".company-logo img").attr("src", `${serverUrl}/jobs/images/${job.logo}`);-->
+<!--                    }-->
+<!--                },-->
+<!--                error: function (xhr, status, error) {-->
+<!--                    console.error("Error fetching job details:", error);-->
+<!--                    Swal.fire({-->
+<!--                        title: 'Error!',-->
+<!--                        text: 'Failed to load job details',-->
+<!--                        icon: 'error'-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--        } else {-->
+<!--            Swal.fire({-->
+<!--                title: 'Error!',-->
+<!--                text: 'No job ID provided',-->
+<!--                icon: 'error'-->
+<!--            }).then(() => {-->
+<!--                window.location.href = 'manage-jobs.html';-->
+<!--            });-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
+<script>
+
+        const serverUrl = 'http://localhost:8090';
+
+        $(document).ready(function() {
+        // Load job types first
+        loadJobTypes().then(() => {
+            // Then load job data if ID exists in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get("jobId");
+
+            if (jobId) {
+                loadJobData(jobId);
+            }
+        });
+
+        // Cancel button functionality
+        $('#cancelBtn').click(function() {
+        window.location.href = 'manage-jobs.html';
+    });
+
+        // Form submission handler
+        $('#jobUpdateForm').submit(function(e) {
+        e.preventDefault();
+        updateJob();
+    });
+    });
+
+        // Function to load job types/categories
+        function loadJobTypes() {
+        return $.ajax({
+        url: `${serverUrl}/jobType/getAll`,
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+        const selectElement = $('#jobTypeSelect');
+        selectElement.empty();
+        selectElement.append('<option value="">Select Job Type</option>');
+
+        data.forEach(jobType => {
+        selectElement.append(
+        $('<option></option>').val(jobType.id).text(jobType.name)
+        );
+    });
+    },
+        error: function(xhr, status, error) {
+        console.error('Error fetching job types:', error);
+        Swal.fire({
+        title: 'Error!',
+        text: 'Failed to load job categories',
+        icon: 'error'
+    });
+    }
+    });
+    }
+
+        // Function to load job data
+        function loadJobData(jobId) {
+        $.ajax({
+            url: `${serverUrl}/jobs/get/${jobId}`,
+            type: "GET",
+            dataType: 'json',
+            success: function (job) {
+                console.log("Job data:", job);
+
+                // Update all form fields
+                $("#job_id").val(job.id);
+                $("#title").val(job.title);
+                $("#description").val(job.description);
+                $("#responsibilities").val(job.responsibilities);
+                $("#experience").val(job.experience);
+                $("#location").val(job.location);
+                $("#jobType").val(job.jobTypeId);
+                $("#salary").val(job.salary);
+                $("#date").val(job.deadline);
+                $("#companyName").val(job.companyName);
+                $("#ComEmail").val(job.email);
+                $("#comDesc").val(job.companyDescription);
+
+                // Set the category - THIS IS THE CRUCIAL PART
+                if (job.categoryId) {
+                    // Wait briefly to ensure dropdown is populated
+                    setTimeout(() => {
+                        const categorySelect = $('#jobTypeSelect');
+                        categorySelect.val(job.categoryId);
+
+                        // If still not selected, force it
+                        if (categorySelect.val() != job.categoryId) {
+                            categorySelect.find('option').each(function () {
+                                if ($(this).val() == job.categoryId) {
+                                    $(this).prop('selected', true);
+                                    return false; // break loop
+                                }
+                            });
+                        }
+                    }, 100);
+                }
+
+                // Update logo if exists
+                if (job.logo) {
+                    $(".company-logo img").attr("src", `${serverUrl}/jobs/images/${job.logo}`);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching job details:", error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Failed to load job details',
+                    icon: 'error'
+                });
+            }
+        });
+    }
+
+        // Function to handle job update
+        function updateJob() {
+        const formData = new FormData($('#jobUpdateForm')[0]);
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get("jobId");
+
+            // console.log(jobId)
+        $.ajax({
+        url: `http://localhost:8090/jobs/update/${jobId}`,
+        type: 'PUT',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+        Swal.fire({
+        title: 'Success!',
+        text: 'Job updated successfully',
+        icon: 'success'
+    }).then(() => {
+        window.location.href = 'manage-jobs.html';
+    });
+    },
+        error: function(xhr, status, error) {
+        Swal.fire({
+        title: 'Error!',
+        text: xhr.responseJSON?.message || 'Failed to update job',
+        icon: 'error'
+    });
+    }
+    });
+    }
+</script>
+</script>
+</body>
+</html>

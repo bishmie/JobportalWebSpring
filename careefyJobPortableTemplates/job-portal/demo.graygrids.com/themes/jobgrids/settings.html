@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #306fe3;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --sidebar-width: 260px;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.5;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark), #343a40);
+            padding-top: 30px;
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar a {
+            color: #e9ecef;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar .brand-logo {
+            color: white;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            padding: 0 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar .brand-logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+
+        .brand-logo {
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 700;
+            padding: 0 24px 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 32px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .header h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            background-color: white;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        .profile-img {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: var(--shadow);
+            margin-bottom: 16px;
+        }
+
+        .settings-tabs .nav-link {
+            color: var(--gray-500);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+        }
+
+        .settings-tabs .nav-link.active {
+            color: var(--primary);
+            background: transparent;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 14px;
+            height: auto;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .btn {
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        .danger-zone {
+            border-left: 3px solid #ef4444;
+            padding-left: 16px;
+        }
+
+        .badge {
+            font-weight: 500;
+            padding: 6px 10px;
+            font-size: 12px;
+            border-radius: 20px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--gray-500);
+            font-size: 16px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="brand-logo">
+            <i class="fas fa-briefcase"></i>
+            <span>Employer Panel</span>
+        </div>
+        <a href="employerdashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="jobPostin.html"><i class="fas fa-plus-circle"></i> Post Job</a>
+        <a href="manageJobsEmployer.html"><i class="fas fa-list"></i> Manage Jobs</a>
+        <a href="empDashboard-candidate.html" class="active"><i class="fas fa-users"></i> Candidates</a>
+        <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h4>Account Settings</h4>
+<!--            <div class="dropdown">-->
+<!--                <button class="btn btn-light rounded-circle p-0" type="button" data-bs-toggle="dropdown">-->
+<!--                    <img src="https://ui-avatars.com/api/?name=User+Name&background=4f46e5&color=fff" alt="User" class="user-avatar">-->
+<!--                </button>-->
+<!--                <ul class="dropdown-menu dropdown-menu-end">-->
+<!--                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>-->
+<!--                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>-->
+<!--                    <li><hr class="dropdown-divider"></li>-->
+<!--                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <img id="profileImage" src="" alt="Profile" class="profile-img">
+                        <h5 class="mb-2" id="firstEmail" style="font-size: 16px">nishmi@gmail.com</h5>
+                        <span class="badge bg-primary-soft text-primary mb-3">PRO USER</span>
+<!--                        <div class="d-grid">-->
+<!--                            <button class="btn btn-outline-primary btn-sm">Edit Profile</button>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-info-circle me-2"></i>Account Details
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <p class="small text-muted mb-1">Email</p>
+                            <p class="mb-0 user-email">john@example.com</p>                        </div>
+
+                        <div class="mb-3">
+                            <p class="small text-muted mb-1">Account Type</p>
+                            <p class="mb-0 account-type">Employer</p> <!-- this will be replaced -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <ul class="nav nav-tabs settings-tabs card-header-tabs border-0">
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link active" data-bs-toggle="tab" href="#profile">Profile</a>-->
+<!--                            </li>-->
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#security">Security</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#account">Account</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <!-- Profile Tab -->
+<!--                            <div class="tab-pane fade show active" id="profile">-->
+<!--                                <form>-->
+<!--                                    <div class="row mb-4">-->
+<!--                                        <div class="col-md-6">-->
+<!--                                            <div class="mb-3">-->
+<!--                                                <label for="username" class="form-label">Username</label>-->
+<!--                                                <input type="text" class="form-control" id="username" value="johndoe">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-6">-->
+<!--                                            <div class="mb-3">-->
+<!--                                                <label for="email" class="form-label">Email</label>-->
+<!--                                                <input type="email" class="form-control" id="email" value="john@example.com">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--&lt;!&ndash;                                    <div class="row mb-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <label for="firstName" class="form-label">First Name</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <input type="text" class="form-control" id="firstName" value="John">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="col-md-6">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="mb-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <label for="lastName" class="form-label">Last Name</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <input type="text" class="form-control" id="lastName" value="Doe">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                    <div class="mb-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <label for="bio" class="form-label">Bio</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <textarea class="form-control" id="bio" rows="4">Digital creator & web enthusiast</textarea>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+
+<!--                                    <div class="d-flex justify-content-end">-->
+<!--                                        <button type="submit" class="btn btn-primary">Save Changes</button>-->
+<!--                                    </div>-->
+<!--                                </form>-->
+<!--                            </div>-->
+
+                            <!-- Security Tab -->
+                            <div class="tab-pane fade show active" id="security">
+                                <div class="form-container">
+                                                                        <h6 class="mb-3">Reset Password</h6>
+
+                                    <!--                                    <h2 class="text-center text-primary">Forgot Password</h2>-->
+                                    <form id="forgotPasswordForm">
+                                        <div class="mb-4">
+                                            <label for="forgotEmail" class="form-label">Enter Your Email Address</label>
+                                            <input type="email" class="form-control" id="forgotEmail" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Send OTP</button>
+                                    </form>
+
+                                    <form id="verifyOtpForm" class="mt-4" style="display: none;">
+                                        <div class="mb-4">
+                                            <label for="otp" class="form-label">Enter OTP</label>
+                                            <input type="text" class="form-control" id="otp" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Verify OTP</button>
+                                    </form>
+
+                                    <form id="resetPasswordForm" class="mt-4" style="display: none;">
+                                        <div class="mb-4">
+                                            <label for="newPassword" class="form-label">Enter New Password</label>
+                                            <input type="password" class="form-control" id="newPassword" required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary w-100">Reset Password</button>
+                                    </form>
+
+                                </div>
+
+
+                                <!--                                &lt;!&ndash; Two-Factor Authentication Section &ndash;&gt;-->
+<!--                                <div class="mb-0">-->
+<!--                                    <h6 class="mb-3">Two-Factor Authentication</h6>-->
+<!--                                    <div class="alert alert-light border">-->
+<!--                                        <div class="d-flex justify-content-between align-items-center">-->
+<!--                                            <div>-->
+<!--                                                <h6 class="mb-1">2FA is currently disabled</h6>-->
+<!--                                                <p class="small text-muted mb-0">Add an extra layer of security to your account</p>-->
+<!--                                            </div>-->
+<!--                                            <button class="btn btn-sm btn-outline-primary">Enable 2FA</button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+
+                            <!-- Account Tab -->
+                            <div class="tab-pane fade" id="account">
+                                <div class="mb-4">
+                                    <h6 class="mb-3">Danger Zone</h6>
+                                    <div class="danger-zone">
+                                        <div class="mb-4">
+                                            <h6>Deactivate Account</h6>
+                                            <p class="small text-muted mb-3">Your profile will be hidden but not permanently deleted.</p>
+                                            <input type="email" id="emailInput" placeholder="Enter user email" style="padding: 10px 15px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; width: 300px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); transition: border-color 0.3s ease;"
+                                                   onmouseover="this.style.borderColor='#999'"
+                                                   onmouseout="this.style.borderColor='#ccc'"
+                                                   onfocus="this.style.borderColor='#4285f4'; this.style.boxShadow='0 0 5px rgba(66,133,244,0.5)'"
+                                                   onblur="this.style.borderColor='#ccc'; this.style.boxShadow='inset 0 1px 3px rgba(0,0,0,0.1)'">
+                                            <button class="btn btn-outline-danger" data-bs-toggle="modal" onclick="deactivateUser()" data-bs-target="#deactivateModal">
+                                                Deactivate Account
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals (same as before) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+
+<script>
+    // Password toggle functionality
+    document.querySelectorAll('.password-toggle').forEach(toggle => {
+        toggle.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const passwordInput = document.getElementById(targetId);
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                this.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                this.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+    });
+</script>
+<script src="assets/js/forgotPassword.js"></script>
+
+
+<script>
+    function deactivateUser() {
+        const email = document.getElementById("emailInput").value;
+
+        if (email.trim() === "") {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Please enter an email!',
+            });
+            return;
+        }
+
+        const xhr = new XMLHttpRequest();
+        const url = `http://localhost:8090/users/deactivate/${email}`;
+
+        xhr.open("PUT", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'You have successfully deactivated your account.',
+                    confirmButtonColor: '#3085d6',
+                });
+            } else if (xhr.status === 404) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed!',
+                    text: 'Account not found. Try again!',
+                    confirmButtonColor: '#d33',
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Something went wrong!',
+                    text: 'Please try again later.',
+                });
+            }
+        };
+
+        xhr.send();
+    }
+</script>
+
+<script>
+    $(document).ready(function () {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Not Authenticated',
+                text: 'Please login first!',
+            });
+            return;
+        }
+
+        try {
+            const decoded = jwt_decode(token);
+            console.log("Decoded Token:", decoded);
+
+            // const userEmail = decoded.email || decoded.sub;
+            const accountType = decoded.accountType || decoded.role;
+            const userEmail = decoded.email || decoded.sub;
+            const firstLetter = userEmail.charAt(0).toUpperCase();
+
+// Generate avatar URL
+            const avatarUrl = `https://ui-avatars.com/api/?name=${firstLetter}&background=4f46e5&color=fff&size=192`;
+
+// Set image src
+            $("#profileImage").attr("src", avatarUrl);
+
+
+
+            // ✅ Set email to both places
+            $("#firstEmail").text(userEmail);
+            $(".user-email").text(userEmail);
+
+            // ✅ Set account type
+            $(".account-type").text(accountType);
+
+
+
+        } catch (error) {
+            console.error("Token decode error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Token',
+                text: 'Please login again.',
+            });
+        }
+    });
+</script>
+
+
+</body>
+</html>

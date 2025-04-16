@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard - Post Job</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- Web Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+          rel="stylesheet">
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+    <link rel="stylesheet" href="assets/css/animate.css" />
+    <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --card-bg: #ffffff;
+            --sidebar-width: 280px;
+
+        }
+
+        body {
+            background-color: #f5f7fb;
+            font-family: 'Inter', sans-serif;
+            color: #2b2d42;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark), #343a40);
+            padding-top: 30px;
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar a {
+            color: #e9ecef;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar .brand-logo {
+            color: white;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            padding: 0 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar .brand-logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .header .profile-btn {
+            background: var(--light);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .header .profile-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .header .profile-btn i {
+            margin-right: 8px;
+        }
+
+        /*#findJob{*/
+        /*    margin-left: 290px;*/
+        /*}*/
+        .job-content a{
+            text-decoration: none;
+
+        }
+        .job-button a{
+            text-decoration: none;
+
+        }
+
+
+        .form-group label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+            color: #374151;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background-color: white;
+            color: var(--dark);
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .header .profile-btn {
+            background: var(--light);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .header .profile-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .header .profile-btn i {
+            margin-right: 8px;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="brand-logo">
+        <i class="fas fa-briefcase"></i>
+        <span>Employer Panel</span>
+    </div>
+    <a href="employerdashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+    <a href="jobPostin.html"><i class="fas fa-plus-circle"></i> Post Job</a>
+    <a href="manageJobsEmployer.html"><i class="fas fa-list"></i> Manage Jobs</a>
+    <a href="empDashboard-candidate.html" class="active"><i class="fas fa-users"></i> Candidates</a>
+    <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+    <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+</div>
+
+
+<!-- Header -->
+<div class="main-content">
+<div class="header">
+<!--    <button class="menu-toggle" id="menuToggle">-->
+<!--        <i class="fas fa-bars"></i>-->
+<!--    </button>-->
+    <h1>Manage Jobs</h1>
+    <button class="btn profile-btn">
+        <i class="fas fa-user-circle"></i>
+        <span>Profile</span>
+    </button>
+</div>
+<!-- Start Find Job Area -->
+<section class="find-job job-list section" id="findJob">
+    <div class="container">
+        <div class="single-head">
+            <div id="job-post-main-div" class="row">
+                <div id="left-post" class="col-lg-6 col-12">
+
+                </div>
+                <div id="right-post" class="col-lg-6 col-12">
+
+                </div>
+            </div>
+<!--            &lt;!&ndash; Pagination &ndash;&gt;-->
+<!--            <div id="pagination" class="row">-->
+<!--                <div class="col-12">-->
+<!--                    <div class="pagination center">-->
+<!--                        <ul class="pagination-list">-->
+<!--                            <li><a href="#"><i class="lni lni-arrow-left"></i></a></li>-->
+<!--                            <li class="active"><a href="#">1</a></li>-->
+<!--                            <li><a href="#">2</a></li>-->
+<!--                            <li><a href="#">3</a></li>-->
+<!--                            <li><a href="#">4</a></li>-->
+<!--                            <li><a href="#"><i class="lni lni-arrow-right"></i></a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash;/ End Pagination &ndash;&gt;-->
+        </div>
+    </div>
+</section>
+<!-- /End Find Job Area -->
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>-->
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<!--<script src="../../../js/job-list.js"></script></body>-->
+
+<script>
+    const token = localStorage.getItem("authToken");
+
+    if (!token) {
+        alert("User not authenticated!");
+    }
+
+    try {
+        const decoded = jwt_decode(token);
+        const userEmail = decoded.email || decoded.sub;
+
+        if (!userEmail) {
+            alert("Email not found in token!");
+        }
+        console.log("tokennnnnnn" + token)
+
+        // Get User ID using email
+        $.ajax({
+            url: `http://localhost:8090/users/getByEmail`,
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token,
+                "Content-Type": "application/json"
+            },
+            success: function (userData) {
+                const userId = userData.userId;
+
+                if (!userId) {
+                    alert("User ID not found in the response");
+                    return;
+                }
+                console.log(userId+"hiiiii ballooooo")
+                const serverUrl = 'http://localhost:8090';
+
+                // Get jobs posted by this employer
+                $.ajax({
+                    url: `http://localhost:8090/jobs/jobFromEmployerId/${userId}`,
+                    type: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token,
+                        "Content-Type": "application/json"
+                    },
+                    success: function (res) {
+                        console.log(res);
+                        loadJobPost(res);
+                    },
+                    error: function (error) {
+                        console.error('Error loading jobs:', error);
+                    }
+                });
+
+
+                let loadJobPost = (res) => {
+
+                    $("#left-post").empty();
+                    $("#right-post").empty();
+
+
+                    if (!res || res.length === 0) {
+
+                        $("#job-post-main-div").append('<div class="no-job-message">No Job data</div>');
+                        $("#pagination").hide();
+                        return;
+                    }
+
+                    res.forEach((job, index) => {
+                        console.log(job.companyDescription+"jobId")
+
+                        let data = `
+        <div class="single-job">
+          <div class="job-image">
+            <img class="jobCardImg" src="${serverUrl}/jobs/images/${job.logo}" alt="#">
+          </div>
+          <div class="job-content">
+            <h4><a href="job-details.html">${job.title}</a></h4>
+            <p>${job.description}</p>
+            <ul>
+           <li><i class="lni lni-website"></i><a href="#"> ${job.email}</a></li>
+            <li><i class="lni lni-dollar"></i> ${job.salary}</li>
+            <li><i class="lni lni-map-marker"></i> ${job.location}</li>
+
+            </ul>
+          </div>
+          <div class="job-button">
+            <ul>
+                      <li><a href="updateJobs.html?jobId=${job.id}">Update</a></li>
+
+            <li>
+          <button class="delete-job-btn" data-id="${job.id}" style="background: red; color: white; padding: 4px 15px;font-size: 14px; border-radius: 4px; border: none">
+          Delete
+        </button>
+            </li>
+
+            </ul>
+          </div>
+        </div>
+      `;
+
+                        if (index % 2 === 0) {
+                            $("#left-post").append(data);
+                        } else {
+                            $("#right-post").append(data);
+                        }
+
+                    });
+                };
+            },
+            error: function (error) {
+                console.error("Error getting user data:", error);
+            }
+        });
+    } catch (error) {
+        console.error("Token decode error:", error);
+    }
+</script>
+
+
+
+
+<!-- Delete Button -->
+<button class="delete-job-btn" data-id="${job.id}" style="background: red; color: white; padding: 5px 10px; border-radius: 4px; border: none; cursor: pointer;">
+    Delete
+</button>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).on('click', '.delete-job-btn', function() {
+        const jobId = $(this).data('id');
+        console.log("Deleting job ID:", jobId); // Debug
+
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: `http://localhost:8090/jobs/delete/${jobId}`, // <-- ඔබේ endpoint එකට අනුව වෙනස් කරන්න
+                    type: 'DELETE',
+                    success: function() {
+                        Swal.fire('Deleted!', '', 'success');
+                        $(this).closest('.job-card').remove(); // DOM එකෙන් ඉවත් කිරීම
+                    },
+                    error: function(xhr) {
+                        Swal.fire('Error!', xhr.responseJSON?.message || 'Failed to delete', 'error');
+                        console.error(xhr); // Detailed error
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

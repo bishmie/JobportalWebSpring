@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employer Dashboard - Candidates</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --card-bg: #ffffff;
+            --sidebar-width: 280px;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            font-family: var(--font-family);
+            color: #2b2d42;
+            font-size: 0.95rem; /* Slightly reduced base font size */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark), #343a40);
+            padding-top: 30px;
+            z-index: 1000;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-family: var(--font-family);
+        }
+
+        .sidebar a {
+            color: #e9ecef;
+            text-decoration: none;
+            font-size: 0.9rem; /* Adjusted font size */
+            padding: 12px 25px;
+            margin: 0 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .brand-logo {
+            color: white;
+            text-align: center;
+            font-size: 1.2rem; /* Adjusted font size */
+            font-weight: 600;
+            padding: 0 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+            transition: all 0.3s ease;
+            font-family: var(--font-family);
+        }
+
+        .header h4 {
+            font-size: 1.25rem; /* Adjusted font size */
+            font-weight: 600;
+        }
+
+        .card-header h5 {
+            font-size: 1.1rem; /* Adjusted font size */
+            font-weight: 600;
+        }
+
+        .table {
+            font-size: 0.9rem; /* Adjusted font size */
+        }
+
+        .table h6 {
+            font-size: 0.95rem; /* Adjusted font size */
+            font-weight: 500;
+        }
+
+        .status-badge {
+            font-size: 0.8rem; /* Adjusted font size */
+        }
+
+        .action-btn {
+            font-size: 0.85rem; /* Adjusted font size */
+        }
+
+        /* Rest of your existing CSS remains exactly the same */
+        .sidebar a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar .brand-logo i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin: -30px -30px 30px -30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .candidate-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        .round-initial {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .round-color-1 {
+            background-color: #FF6B6B;
+        }
+
+        .round-color-2 {
+            background-color: #6BCB77;
+        }
+
+        .round-color-3 {
+            background-color: #4D96FF;
+        }
+
+        .candidate-info {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="brand-logo">
+            <i class="fas fa-briefcase"></i>
+            <span>Employer Panel</span>
+        </div>
+        <a href="employerdashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        <a href="jobPostin.html"><i class="fas fa-plus-circle"></i> Post Job</a>
+        <a href="manageJobsEmployer.html"><i class="fas fa-list"></i> Manage Jobs</a>
+        <a href="empDashboard-candidate.html" class="active"><i class="fas fa-users"></i> Candidates</a>
+        <a href="settings.html"><i class="fas fa-cog"></i> Settings</a>
+        <a href="index.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h4>Candidate Applications</h4>
+            <div class="user-menu">
+                <img src="https://via.placeholder.com/40" class="rounded-circle me-2">
+                <span>Employer</span>
+            </div>
+        </div>
+
+        <!-- Candidate Applications -->
+        <div class="card mb-4">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">All Applicants</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Job Title</th>
+                            <th>Company Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <div class="candidate-info">
+                                    <div class="round-initial round-color-1">J</div>
+                                    <div>
+                                        <h6 class="mb-0">John Smith</h6>
+                                        <small>Applied: May 15, 2023</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Frontend Developer</td>
+                            <td>Kylix</td>
+                            <td>john.smith@example.com</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-light action-btn" title="Download CV">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-sm btn-success action-btn" title="Approve">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger action-btn" title="Reject">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="candidate-info">
+                                    <div class="round-initial round-color-2">S</div>
+                                    <div>
+                                        <h6 class="mb-0">Sarah Johnson</h6>
+                                        <small>Applied: May 14, 2023</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>UX Designer</td>
+                            <td>Kylix</td>
+                            <td>sarah.j@example.com</td>
+                            <td><span class="status-badge status-approved">Approved</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-light action-btn" title="Download CV">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger action-btn" title="Reject">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="candidate-info">
+                                    <div class="round-initial round-color-3">M</div>
+                                    <div>
+                                        <h6 class="mb-0">Michael Brown</h6>
+                                        <small>Applied: May 10, 2023</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>Backend Engineer</td>
+                            <td>Kylix</td>
+                            <td>michael.b@example.com</td>
+                            <td><span class="status-badge status-rejected">Rejected</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-light action-btn" title="Download CV">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn btn-sm btn-success action-btn" title="Approve">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+<script src="assets/js/employer-candidate.js"></script>
+</body>
+</html>
+<!--<script>-->
+<!--    // Simple function to handle candidate actions-->
+<!--    function handleAction(action, candidateName) {-->
+<!--        alert(`${action} ${candidateName}'s application`);-->
+<!--        // In a real application, you would make an API call here-->
+<!--    }-->
+
+<!--    // Attach event listeners to all action buttons-->
+<!--    document.querySelectorAll('.btn-success').forEach(btn => {-->
+<!--        btn.addEventListener('click', function() {-->
+<!--            const candidateName = this.closest('tr').querySelector('h6').textContent;-->
+<!--            handleAction('Approved', candidateName);-->
+<!--        });-->
+<!--    });-->
+
+<!--    document.querySelectorAll('.btn-danger').forEach(btn => {-->
+<!--        btn.addEventListener('click', function() {-->
+<!--            const candidateName = this.closest('tr').querySelector('h6').textContent;-->
+<!--            handleAction('Rejected', candidateName);-->
+<!--        });-->
+<!--    });-->
+
+<!--    document.querySelectorAll('.btn-light').forEach(btn => {-->
+<!--        btn.addEventListener('click', function() {-->
+<!--            const candidateName = this.closest('tr').querySelector('h6').textContent;-->
+<!--            alert(`Downloading ${candidateName}'s application`);-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+
+<!--<script>-->
+
+<!--    const token = localStorage.getItem("authToken");-->
+
+<!--    if (!token) {-->
+<!--        alert("User not authenticated!");-->
+<!--    } else {-->
+<!--        try {-->
+<!--            const decoded = jwt_decode(token);-->
+<!--            const userEmail = decoded.email || decoded.sub;-->
+
+<!--            if (!userEmail) {-->
+<!--                alert("Email not found in token!");-->
+<!--            }-->
+
+<!--            // Get user by email to fetch employerId-->
+<!--            $.ajax({-->
+<!--                url: `http://localhost:8090/users/getByEmail`,-->
+<!--                method: "GET",-->
+<!--                headers: {-->
+<!--                    "Authorization": "Bearer " + token,-->
+<!--                    "Content-Type": "application/json"-->
+<!--                },-->
+<!--                success: function (userData) {-->
+<!--                    const employerId = userData.userId;-->
+
+<!--                    if (!employerId) {-->
+<!--                        alert("Employer ID not found in response");-->
+<!--                        return;-->
+<!--                    }-->
+
+<!--                    // Now fetch applications by employerId-->
+<!--                    $.ajax({-->
+<!--                        url: `http://localhost:8090/job-applications/fromEmployer/${employerId}`,-->
+<!--                        method: "GET",-->
+<!--                        headers: {-->
+<!--                            "Authorization": "Bearer " + token-->
+<!--                        },-->
+<!--                        success: function (applications) {-->
+<!--                            renderApplications(applications);-->
+<!--                        },-->
+<!--                        error: function () {-->
+<!--                            alert("Failed to load applications!");-->
+<!--                        }-->
+<!--                    });-->
+
+<!--                },-->
+<!--                error: function () {-->
+<!--                    alert("Failed to fetch user by email!");-->
+<!--                }-->
+<!--            });-->
+<!--        } catch (err) {-->
+<!--            console.error("Token decoding error:", err);-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Function to render applications to the table-->
+
+
+<!--    // Function to render applications to the table-->
+<!--    function renderApplications(applications) {-->
+<!--        const tbody = $("table tbody");-->
+<!--        tbody.empty(); // clear existing-->
+
+<!--        if (applications.length === 0) {-->
+<!--            tbody.append(`<tr><td colspan="6">No applications found.</td></tr>`);-->
+<!--            return;-->
+<!--        }-->
+
+<!--        applications.forEach((app, index) => {-->
+<!--            // Get first letter of username-->
+<!--            const firstLetter = app.username ? app.username.charAt(0).toUpperCase() : '?';-->
+
+<!--            // Determine color class (1-3)-->
+<!--            const colorClass = (index % 3) + 1;-->
+
+<!--            const row = `-->
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <div class="candidate-info">-->
+<!--                    <div class="round-initial round-color-${colorClass}">${firstLetter}</div>-->
+<!--                    <div>-->
+<!--                        <h6 class="mb-0">${app.username || 'N/A'}</h6>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            <td>${app.jobTitle || 'N/A'}</td>-->
+<!--            <td>${app.companyName || 'N/A'}</td>-->
+<!--            <td>${app.email || 'N/A'}</td>-->
+<!--            <td><span class="status-badge status-${app.status ? app.status.toLowerCase() : 'pending'}">${app.status || 'Pending'}</span></td>-->
+<!--            <td>-->
+<!--               &lt;!&ndash; Download Button &ndash;&gt;-->
+<!--                <button onclick="downloadResume(${app.id})" class="btn btn-sm btn-light">-->
+<!--                  <i class="fas fa-download"></i> Resume-->
+<!--                </button>-->
+<!--                <button class="btn btn-sm btn-success action-btn"-->
+<!--                        data-id="${app.id}"-->
+<!--                        data-status="Approved"-->
+<!--                        title="Approve">-->
+<!--                    <i class="fas fa-check"></i>-->
+<!--                </button>-->
+<!--                <button class="btn btn-sm btn-danger action-btn"-->
+<!--                        data-id="${app.id}"-->
+<!--                        data-status="Rejected"-->
+<!--                        title="Reject">-->
+<!--                    <i class="fas fa-times"></i>-->
+<!--                </button>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        `;-->
+<!--            tbody.append(row);-->
+<!--        });-->
+
+<!--        // Attach event listeners to the new buttons-->
+<!--        attachActionListeners();-->
+<!--    }-->
+
+<!--    // Function to attach event listeners-->
+<!--    function attachActionListeners() {-->
+<!--        // Download CV button-->
+<!--        $('.btn-light').off('click').on('click', function() {-->
+<!--            const candidateName = $(this).closest('tr').find('h6').text();-->
+<!--            alert(`Downloading ${candidateName}'s application`);-->
+<!--        });-->
+
+<!--        // Approve/Reject buttons-->
+<!--        $('.btn-success, .btn-danger').off('click').on('click', function() {-->
+<!--            const button = $(this);-->
+<!--            const applicationId = button.data('id');-->
+<!--            const newStatus = button.data('status');-->
+<!--            const row = button.closest('tr');-->
+
+<!--            // Show loading state-->
+<!--            button.prop('disabled', true);-->
+<!--            button.html('<i class="fas fa-spinner fa-spin"></i>');-->
+
+<!--            // Prepare the request data-->
+<!--            const requestData = {-->
+<!--                newStatus: newStatus-->
+<!--            };-->
+
+<!--            // Make the PATCH request-->
+<!--            $.ajax({-->
+<!--                url: `http://localhost:8090/job-applications/${applicationId}/status`,-->
+<!--                method: 'PATCH',-->
+<!--                contentType: 'application/json',-->
+<!--                headers: {-->
+<!--                    "Authorization": "Bearer " + localStorage.getItem("authToken")-->
+<!--                },-->
+<!--                data: JSON.stringify(requestData),-->
+<!--                success: function(response) {-->
+<!--                    // Update the status in the table-->
+<!--                    const statusBadge = row.find('.status-badge');-->
+<!--                    statusBadge.removeClass('status-pending status-approved status-rejected')-->
+<!--                        .addClass(`status-${newStatus.toLowerCase()}`)-->
+<!--                        .text(newStatus);-->
+
+<!--                    // Show success message-->
+<!--                    Swal.fire({-->
+<!--                        icon: 'success',-->
+<!--                        title: 'Status Updated',-->
+<!--                        text: `Application status changed to ${newStatus}`,-->
+<!--                        timer: 2000,-->
+<!--                        showConfirmButton: false,-->
+
+<!--                    });-->
+<!--                    window.location.href = "mail-success.html"; // Redirect to normal dashboard-->
+
+<!--                },-->
+<!--                error: function(xhr) {-->
+<!--                    Swal.fire({-->
+<!--                        icon: 'error',-->
+<!--                        title: 'Error',-->
+<!--                        text: xhr.responseJSON?.message || 'Failed to update status'-->
+<!--                    });-->
+<!--                    window.location.href = "mail-success.html"; // Redirect to normal dashboard-->
+
+<!--                },-->
+<!--                complete: function() {-->
+<!--                    // Reset button state-->
+<!--                    button.prop('disabled', false);-->
+<!--                    button.html(newStatus === 'Approved' ? '<i class="fas fa-check"></i>' : '<i class="fas fa-times"></i>');-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    }-->
+
+<!--    // Function to load applications-->
+<!--    function loadApplications() {-->
+<!--        const token = localStorage.getItem("authToken");-->
+
+<!--        if (!token) {-->
+<!--            alert("User not authenticated!");-->
+<!--            return;-->
+<!--        }-->
+
+<!--        try {-->
+<!--            const decoded = jwt_decode(token);-->
+<!--            const userEmail = decoded.email || decoded.sub;-->
+
+<!--            if (!userEmail) {-->
+<!--                alert("Email not found in token!");-->
+<!--                return;-->
+<!--            }-->
+
+<!--            // Get user by email to fetch employerId-->
+<!--            $.ajax({-->
+<!--                url: `http://localhost:8090/users/getByEmail`,-->
+<!--                method: "GET",-->
+<!--                headers: {-->
+<!--                    "Authorization": "Bearer " + token,-->
+<!--                    "Content-Type": "application/json"-->
+<!--                },-->
+<!--                success: function(userData) {-->
+<!--                    const employerId = userData.userId;-->
+
+<!--                    if (!employerId) {-->
+<!--                        alert("Employer ID not found in response");-->
+<!--                        return;-->
+<!--                    }-->
+
+<!--                    // Fetch applications by employerId-->
+<!--                    $.ajax({-->
+<!--                        url: `http://localhost:8090/job-applications/fromEmployer/${employerId}`,-->
+<!--                        method: "GET",-->
+<!--                        headers: {-->
+<!--                            "Authorization": "Bearer " + token-->
+<!--                        },-->
+<!--                        success: function(applications) {-->
+<!--                            renderApplications(applications);-->
+<!--                        },-->
+<!--                        error: function() {-->
+<!--                            alert("Failed to load applications!");-->
+<!--                        }-->
+<!--                    });-->
+<!--                },-->
+<!--                error: function() {-->
+<!--                    alert("Failed to fetch user by email!");-->
+<!--                }-->
+<!--            });-->
+<!--        } catch (err) {-->
+<!--            console.error("Token decoding error:", err);-->
+<!--        }-->
+<!--    }-->
+
+<!--    // Initialize when page loads-->
+<!--    $(document).ready(function() {-->
+<!--        loadApplications();-->
+<!--    });-->
+<!--</script>-->
+
+
+
+
+
+<!--<script>-->
+<!--    function downloadResume(applicationId) {-->
+<!--        console.log(applicationId+ "applcation idddd")-->
+<!--        $.ajax({-->
+<!--            url: 'http://localhost:8090/job-applications/download-resume/' + applicationId,-->
+<!--            method: 'GET',-->
+<!--            xhrFields: {-->
+<!--                responseType: 'blob'-->
+<!--            },-->
+<!--            success: function(data, status, xhr) {-->
+<!--                const disposition = xhr.getResponseHeader('Content-Disposition');-->
+<!--                const match = disposition && disposition.match(/filename="(.+)"/);-->
+<!--                const filename = match ? match[1] : 'resume.pdf';-->
+
+<!--                const url = window.URL.createObjectURL(data);-->
+<!--                const a = document.createElement('a');-->
+<!--                a.href = url;-->
+<!--                a.download = filename;-->
+<!--                document.body.appendChild(a);-->
+<!--                a.click();-->
+<!--                document.body.removeChild(a);-->
+<!--                window.URL.revokeObjectURL(url);-->
+<!--            },-->
+<!--            error: function(xhr) {-->
+<!--                alert("Resume download failed!");-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+
+
+</body>
+</html>

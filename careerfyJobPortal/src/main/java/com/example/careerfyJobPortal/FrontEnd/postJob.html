@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Information Form</title>
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="postAjob.css">
+</head>
+<body>
+<nav class="navbar">
+    <!-- Left Side: Logo -->
+    <a href="#" class="logo">Careerfy</a>
+
+    <!-- Middle: Navigation Links -->
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Candidates</a></li>
+        <li><a href="#">Employees</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+
+    <!-- Right Side: Buttons -->
+    <div class="nav-buttons">
+        <button class="login-btn"><i class="fa-solid fa-user"></i> Login</button>
+        <button class="signup-btn">Sign up</button>
+    </div>
+
+    <!-- Mobile Menu Icon -->
+    <button class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+</nav>
+
+<!-- Mobile Dropdown Menu -->
+<div class="mobile-menu">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Candidates</a>
+    <a href="#">Employees</a>
+    <a href="#">Contact</a>
+    <button class="login-btn"><i class="fa-solid fa-user"></i> Login</button>
+    <button class="signup-btn">Sign up</button>
+</div>
+
+
+<!-- Hero Section with Image and Overlay -->
+<div class="hero-sections">
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <h2>Post a Job</h2>
+        <hr class="underlines">
+        <p class="banner-p"> Business plan draws on a wide range of knowledge from different business
+            disciplines. Business draws on a wide range of different business</p>
+        <p class="banner-p2"> Home | Post A Job</p>
+    </div>
+</div>
+
+
+<div class="container mt-5" >
+    <!-- Job Information Section -->
+    <div class="section-title mb-3">
+        <h4>Job Information</h4>
+
+    </div>
+    <form>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="jobTitle" class="form-label">Job title*</label>
+                <input type="text" style="height: 50px" class="form-control" id="jobTitle" required>
+            </div>
+            <div class="col-md-6">
+                <label for="category" class="form-label">Category*</label>
+                <select class="form-select" style="height: 50px" id="category" required>
+                    <option value="technical" selected>Technical</option>
+                    <option value="teaching">Teaching</option>
+                    <option value="it">IT</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="design">Design</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="jobTypes" class="form-label">Job Types*</label>
+                <select class="form-select" style="height: 50px" id="jobTypes" required>
+                    <option value="fullTime" selected>Full Time</option>
+                    <option value="partTime">Part Time</option>
+                    <option value="contract">Contract</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="applicationDeadline" class="form-label">Application Deadline</label>
+                <input type="date" class="form-control" style="height: 50px" id="applicationDeadline" value="2020-12-11">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="salaryCurrency" class="form-label">Salary Currency</label>
+                <select class="form-select" style="height: 50px" id="salaryCurrency">
+                    <option value="default" selected>Default</option>
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                    <option value="gbp">GBP</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="jobDescription" class="form-label">Job Description*</label>
+                <textarea class="form-control"  id="jobDescription" rows="4" required></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="responsibilities" class="form-label">Responsibilities*</label>
+                <textarea class="form-control" id="responsibilities" rows="4" required></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="experience" class="form-label">Experience*</label>
+                <textarea class="form-control" id="experience" rows="4" required></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="benefits" class="form-label">Benefits*</label>
+                <textarea class="form-control" id="benefits" rows="4" required></textarea>
+            </div>
+        </div>
+
+        <!-- Company Information Section -->
+        <div class="section-title mt-5 mb-3">
+            <h4>Company Information</h4>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="companyName" class="form-label">Company Name</label>
+                <input type="text" class="form-control" id="companyName" style="height: 50px" required>
+            </div>
+            <div class="col-md-6">
+                <label for="companyWebsite" class="form-label">Company Website</label>
+                <input type="url" class="form-control" id="companyWebsite" style="height: 50px">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="linkedinPage" class="form-label">LinkedIn Page (Link)</label>
+                <input type="url" class="form-control" id="linkedinPage" style="height: 50px" >
+            </div>
+            <div class="col-md-6">
+                <label for="facebookPage" class="form-label">Facebook Page (Link)</label>
+                <input type="url" class="form-control" id="facebookPage" style="height: 50px">
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="companyDescription" class="form-label">Company Description*</label>
+                <textarea class="form-control" id="companyDescription" rows="4" required></textarea>
+            </div>
+            <div class="col-md-6">
+                <label for="logo" class="form-label">Logo (Optional)</label>
+                <input type="file" class="form-control" id="logo" accept="image/*" style="height: 50px">
+                <small class="form-text text-muted">Maximum file size: 2 MB</small>
+            </div>
+        </div>
+
+        <!-- Recruiter Information Section -->
+        <div class="section-title mt-5 mb-3">
+            <h4>Recruiter Information</h4>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="recruiterName" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="recruiterName">
+            </div>
+            <div class="col-md-6">
+                <label for="recruiterEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="recruiterEmail">
+            </div>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="termsConditions" required>
+            <label class="form-check-label" for="termsConditions">By clicking checkbox, you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>.</label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<script src="js/home.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
