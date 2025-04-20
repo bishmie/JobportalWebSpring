@@ -355,13 +355,13 @@
         $('#candidatebtn').click(function () {
             $('#candidatebtn').addClass('btn-primary').removeClass('btn-outline-primary');
             $('#employerbtn').addClass('btn-outline-primary').removeClass('btn-primary');
-            loadUsers('http://localhost:8090/users/getAllCandidates');
+            loadUsers('http://localhost:8090/api/v1/users/getAllCandidates');
         });
 
         $('#employerbtn').click(function () {
             $('#employerbtn').addClass('btn-primary').removeClass('btn-outline-primary');
             $('#candidatebtn').addClass('btn-outline-primary').removeClass('btn-primary');
-            loadUsers('http://localhost:8090/users/getAllEmployers');
+            loadUsers('http://localhost:8090/api/v1/users/getAllEmployers');
         });
 
         $('#searchUser').on('input', function () {
@@ -372,7 +372,7 @@
         });
 
         // Load all users by default on page load
-        loadUsers('http://localhost:8090/users/getAll');
+        loadUsers('http://localhost:8090/api/v1/users/getAll');
     });
 </script>
 

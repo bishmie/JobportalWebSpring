@@ -59,51 +59,43 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/v1/auth/authenticate",
-                                "/users/register",
-                                "/jobType/getAll",
-                                "/users/getAll",
-                                "users/totalUsers",
-                                "/jobType/save",
-                                "jobType/update/{id}",
-                                "jobType/delete/{id}",
-                                "users/getAllCandidates",
-                                "users/getAllEmployers",
-                                "users/deactivate",
-                                "users/getUserIdFromToken",
-                                "/jobs/getAllForJobCards",
-                                "/jobs/getAll",
-//                                "/jobs/add",
-                                "/jobs/images/{filename}",
-                                "/jobs/update/{id}",
-                                  "/jobs/delete/{id}",
-                                  "/job-applications/fromEmployer/{employerId}",
-//                                 "users/getByEmail?email/{encodeURIComponent(userEmail)",
-//                                "jobs/get",
-                                "users/getByEmail",
+                                "/api/v1/users/register",
                                 "api/v1/auth/forgot-password",
-                                "api/v1/auth/reset-password",
-                                "api/v1/auth/verify-otp",
-                                "/jobs/get/{jobId}",
-                                "/job-applications/{id}/status",
-                                "jobs/jobFromEmployerId/{employerId}",
-                                "/job-applications/download-resume/{id}",
-                                "/users/getUserDetails/${userId}",
-                                "/users/change-password",
-                                "/users/deactivate/{email}",
-                                 "/users/active-count",
-                                 "jobs/count",
-//                                "/jobs/count/{employerId}",
+                                "/api/v1/auth/reset-password",
+                                "/api/v1/auth/verify-otp",
+                                "api/v1/jobType/getAll",
+                                "api/v1/jobs/getAll",
                                 "/uploads/**",
                                 "/api/v1/auth/refreshToken",
+                                "/api/**",
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll() // Allow these endpoints without authentication
-                        .anyRequest().authenticated() // Secure all other endpoints
+                        .requestMatchers(
+                                "/api/v1/jobs/**"
+                        ).hasAuthority("EMPLOYER")
+
+                        .requestMatchers(
+                                "/api/v1/job-applications/add"
+                        ).hasAuthority("CANDIDATE")
+
+
+                        .requestMatchers(
+                                "/api/v1/users/getAll",
+                                "/api/v1/jobCategory/getAll"
+                        ).hasAuthority("ADMIN")
+
+
+                        .requestMatchers("/api/v1/job/add","/api/v1/job/post-job")
+                        .hasAuthority("EMPLOYER")
+                        .anyRequest().authenticated()
+
                 )
+
+
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .cors(Customizer.withDefaults())
                 .build();
     }
 

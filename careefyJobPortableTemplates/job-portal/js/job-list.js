@@ -102,7 +102,7 @@ let allJobs = []; // Global variable to store all job data
 $(document).ready(function(){
     // Fetch all job posts
     $.ajax({
-        url: `${serverUrl}/jobs/getAll`,
+        url: `${serverUrl}/api/v1/jobs/getAll`,
         type: "GET",
         success: (res) => {
             console.log('Loaded Jobs:', res);
@@ -175,7 +175,7 @@ $(document).ready(function(){
             let data = `
             <div class="single-job">
                 <div class="job-image">
-                    <img class="jobCardImg" src="${serverUrl}/jobs/images/${job.logo}" alt="#">
+                    <img class="jobCardImg" src="${serverUrl}/api/v1/jobs/images/${job.logo}" alt="#">
                 </div>
                 <div class="job-content">
                     <h4><a href="job-details.html">${job.title}</a></h4>

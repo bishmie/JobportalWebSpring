@@ -44,7 +44,7 @@
 
     // Get user by email to fetch employerId
     $.ajax({
-    url: `http://localhost:8090/users/getByEmail`,
+    url: `http://localhost:8090/api/v1/users/getByEmail`,
     method: "GET",
     headers: {
     "Authorization": "Bearer " + token,
@@ -60,7 +60,7 @@
 
     // Now fetch applications by employerId
     $.ajax({
-    url: `http://localhost:8090/job-applications/fromEmployer/${employerId}`,
+    url: `http://localhost:8090/api/v1/job-applications/fromEmployer/${employerId}`,
     method: "GET",
     headers: {
     "Authorization": "Bearer " + token
@@ -170,7 +170,7 @@
 
     // Make the PATCH request
     $.ajax({
-    url: `http://localhost:8090/job-applications/${applicationId}/status`,
+    url: `http://localhost:8090/api/v1/job-applications/${applicationId}/status`,
     method: 'PATCH',
     contentType: 'application/json',
     headers: {
@@ -234,7 +234,7 @@
 
     // Get user by email to fetch employerId
     $.ajax({
-    url: `http://localhost:8090/users/getByEmail`,
+    url: `http://localhost:8090/api/v1/users/getByEmail`,
     method: "GET",
     headers: {
     "Authorization": "Bearer " + token,
@@ -250,7 +250,7 @@
 
     // Fetch applications by employerId
     $.ajax({
-    url: `http://localhost:8090/job-applications/fromEmployer/${employerId}`,
+    url: `http://localhost:8090/api/v1/job-applications/fromEmployer/${employerId}`,
     method: "GET",
     headers: {
     "Authorization": "Bearer " + token
@@ -286,7 +286,7 @@
     function downloadResume(applicationId) {
     console.log(applicationId+ "applcation idddd")
     $.ajax({
-    url: 'http://localhost:8090/job-applications/download-resume/' + applicationId,
+    url: 'http://localhost:8090/api/v1/job-applications/download-resume/' + applicationId,
     method: 'GET',
     xhrFields: {
     responseType: 'blob'

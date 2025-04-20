@@ -474,7 +474,7 @@
 
                 // Get user by email to fetch employerId
                 $.ajax({
-                    url: `http://localhost:8090/users/getByEmail?email=${userEmail}`,
+                    url: `http://localhost:8090/api/v1/users/getByEmail?email=${userEmail}`,
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + token,
@@ -490,7 +490,7 @@
 
                         // Now fetch applications by employerId
                         $.ajax({
-                            url: `http://localhost:8090/job-applications/fromEmployer/${employerId}`,
+                            url: `http://localhost:8090/api/v1/job-applications/fromEmployer/${employerId}`,
                             method: "GET",
                             headers: {
                                 "Authorization": "Bearer " + token
@@ -569,7 +569,7 @@
             const userEmail = decoded.email || decoded.sub;
 
             $.ajax({
-                url: `http://localhost:8090/users/getByEmail`,
+                url: `http://localhost:8090/api/v1/users/getByEmail`,
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + token
@@ -578,7 +578,7 @@
                     const employerId = userData.userId;
 
                     $.ajax({
-                        url: `http://localhost:8090/jobs/count/${employerId}`,
+                        url: `http://localhost:8090/api/v1/jobs/count/${employerId}`,
                         method: "GET",
                         headers: {
                             "Authorization": "Bearer " + token

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $.ajax({
-        url: 'http://localhost:8090/users/getAll',
+        url: 'http://localhost:8090/api/v1/users/getAll',
         type: 'GET',
         success: function (response) {
             let users = response;
@@ -29,7 +29,7 @@ $(document).ready(function () {
 $(document).ready(function () {
 
     $.ajax({
-        url: 'http://localhost:8090/users/totalUsers',
+        url: 'http://localhost:8090/api/v1/users/totalUsers',
         type: 'GET',
         success: function (count) {
             $('#totalUsers').text(count.toLocaleString());
@@ -44,7 +44,7 @@ $(document).ready(function () {
 
     $(document).ready(function () {
     $.ajax({
-        url: 'http://localhost:8090/users/active-count', // adjust if needed
+        url: 'http://localhost:8090/api/v1/users/active-count', // adjust if needed
         method: 'GET',
         success: function (data) {
             $('#activeUserCount').text(data);

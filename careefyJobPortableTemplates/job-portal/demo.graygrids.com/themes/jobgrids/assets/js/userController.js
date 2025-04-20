@@ -74,7 +74,7 @@ $(document).ready(function () {
         };
 
         $.ajax({
-            url: 'http://localhost:8090/users/register',
+            url: 'http://localhost:8090/api/v1/users/register',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(userData),

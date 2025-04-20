@@ -397,7 +397,7 @@
 
         // Load job types
         function loadJobTypes() {
-            fetch('http://localhost:8090/jobType/getAll', {
+            fetch('http://localhost:8090/api/v1/jobType/getAll', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -438,7 +438,7 @@
 
             // Get User ID
             $.ajax({
-                url: `http://localhost:8090/users/getByEmail`,
+                url: `http://localhost:8090/api/v1/users/getByEmail`,
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + token,
@@ -503,7 +503,7 @@
 
                         // AJAX Request
                         $.ajax({
-                            url: 'http://localhost:8090/jobs/add',
+                            url: 'http://localhost:8090/api/v1/jobs/add',
                             type: 'POST',
                             headers: {
                                 "Authorization": "Bearer " + token

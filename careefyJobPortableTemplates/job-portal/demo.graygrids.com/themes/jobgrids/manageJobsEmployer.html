@@ -285,7 +285,7 @@
 
         // Get User ID using email
         $.ajax({
-            url: `http://localhost:8090/users/getByEmail`,
+            url: `http://localhost:8090/api/v1/users/getByEmail`,
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token,
@@ -303,7 +303,7 @@
 
                 // Get jobs posted by this employer
                 $.ajax({
-                    url: `http://localhost:8090/jobs/jobFromEmployerId/${userId}`,
+                    url: `http://localhost:8090/api/v1/jobs/jobFromEmployerId/${userId}`,
                     type: "GET",
                     headers: {
                         "Authorization": "Bearer " + token,
@@ -338,7 +338,7 @@
                         let data = `
         <div class="single-job">
           <div class="job-image">
-            <img class="jobCardImg" src="${serverUrl}/jobs/images/${job.logo}" alt="#">
+            <img class="jobCardImg" src="${serverUrl}/api/v1/jobs/images/${job.logo}" alt="#">
           </div>
           <div class="job-content">
             <h4><a href="job-details.html">${job.title}</a></h4>
@@ -410,7 +410,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `http://localhost:8090/jobs/delete/${jobId}`, // <-- ඔබේ endpoint එකට අනුව වෙනස් කරන්න
+                    url: `http://localhost:8090/api/v1/jobs/delete/${jobId}`, // <-- ඔබේ endpoint එකට අනුව වෙනස් කරන්න
                     type: 'DELETE',
                     success: function() {
                         Swal.fire('Deleted!', '', 'success');

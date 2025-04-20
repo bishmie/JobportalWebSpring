@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/job-applications")
+@RequestMapping("/api/v1/job-applications")
 public class JobApplicationController {
 
     @Autowired

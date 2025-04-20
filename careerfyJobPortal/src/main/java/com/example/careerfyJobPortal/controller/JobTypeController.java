@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/jobType")
+@RequestMapping("/api/v1/jobType")
 public class JobTypeController {
 
     @Autowired

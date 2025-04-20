@@ -21,7 +21,7 @@ $(document).ready(function () {
     // Add new Category
     function addCategory(categoryName) {
         $.ajax({
-            url: 'http://localhost:8090/jobType/save',
+            url: 'http://localhost:8090/api/v1/jobType/save',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({ name: categoryName }),
@@ -38,7 +38,7 @@ $(document).ready(function () {
     // Load Categories
     function loadCategories() {
         $.ajax({
-            url: 'http://localhost:8090/jobType/getAll',
+            url: 'http://localhost:8090/api/v1/jobType/getAll',
             type: 'GET',
             success: function (categories) {
                 let tableBody = $('#categoryTableBody');
@@ -102,7 +102,7 @@ $(document).ready(function () {
     // Delete Category
     function deleteCategory(id) {
         $.ajax({
-            url: `http://localhost:8090/jobType/delete/${id}`,
+            url: `http://localhost:8090/api/v1/jobType/delete/${id}`,
             type: 'DELETE',
             success: function () {
                 Swal.fire(
@@ -125,7 +125,7 @@ $(document).ready(function () {
     // Update Category
     function updateCategory(id, newName) {
         $.ajax({
-            url: `http://localhost:8090/jobType/update/${id}`,
+            url: `http://localhost:8090/api/v1/jobType/update/${id}`,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify({ name: newName }),

@@ -10,7 +10,7 @@
 
     if (jobId) {
     $.ajax({
-    url: `http://localhost:8090/jobs/get/${jobId}`,
+    url: `http://localhost:8090/api/v1/jobs/get/${jobId}`,
     type: "GET",
     contentType: 'application/json',
 
@@ -65,7 +65,7 @@
 
 
     // Update the Company Logo
-    $(".company-logo img").attr("src", `${serverUrl}/jobs/images/${job.logo}`);
+    $(".company-logo img").attr("src", `${serverUrl}/api/v1/jobs/images/${job.logo}`);
 
 },
     error: function (xhr, status, error) {
@@ -119,7 +119,7 @@
 
     // Get User ID
     $.ajax({
-    url: `http://localhost:8090/users/getByEmail`,
+    url: `http://localhost:8090/api/v1/users/getByEmail`,
     method: "GET",
     headers: {
     "Authorization": "Bearer " + token,
@@ -190,7 +190,7 @@
 
     // AJAX Request
     $.ajax({
-    url: 'http://localhost:8090/job-applications/add',
+    url: 'http://localhost:8090/api/v1/job-applications/add',
     type: 'POST',
     headers: {
     "Authorization": "Bearer " + token

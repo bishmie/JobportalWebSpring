@@ -1,5 +1,5 @@
 function loadJobCategories() {
-    fetch('http://localhost:8090/jobType/getAll')
+    fetch('http://localhost:8090/api/v1/jobType/getAll')
         .then(response => response.json())
         .then(jobCategories => {
             const cardsContainer = document.getElementById('jobCategoryCards');

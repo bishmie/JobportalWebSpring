@@ -573,7 +573,7 @@
         // Function to load job types/categories
         function loadJobTypes() {
         return $.ajax({
-        url: `${serverUrl}/jobType/getAll`,
+        url: `${serverUrl}/api/v1/jobType/getAll`,
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -601,7 +601,7 @@
         // Function to load job data
         function loadJobData(jobId) {
         $.ajax({
-            url: `${serverUrl}/jobs/get/${jobId}`,
+            url: `${serverUrl}/api/v1/jobs/get/${jobId}`,
             type: "GET",
             dataType: 'json',
             success: function (job) {
@@ -642,7 +642,7 @@
 
                 // Update logo if exists
                 if (job.logo) {
-                    $(".company-logo img").attr("src", `${serverUrl}/jobs/images/${job.logo}`);
+                    $(".company-logo img").attr("src", `${serverUrl}/api/v1/jobs/images/${job.logo}`);
                 }
             },
             error: function (xhr, status, error) {
@@ -664,7 +664,7 @@
 
             // console.log(jobId)
         $.ajax({
-        url: `http://localhost:8090/jobs/update/${jobId}`,
+        url: `http://localhost:8090/api/v1/jobs/update/${jobId}`,
         type: 'PUT',
         data: formData,
         processData: false,
@@ -687,7 +687,6 @@
     }
     });
     }
-</script>
 </script>
 </body>
 </html>
